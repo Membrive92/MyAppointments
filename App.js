@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, FlatList} from 'react-native';
+import Appointment from './components/appointment';
 
 const App = () => {
   const [appointments, setAppointments] = useState([
-    {id: '1', client: 'Wika', owner: 'Jose', features: 'Agressive'},
-    {id: '2', client: 'Trambolico', owner: 'pepita', features: 'Sleeping'},
-    {id: '3', client: 'Cascabeles', owner: 'paca', features: 'Hungry'},
+    {id: '1', client: 'Wika', owner: 'Jose', comment: 'Agressive'},
+    {id: '2', client: 'Trambolico', owner: 'pepita', comment: 'Sleeping'},
+    {id: '3', client: 'Cascabeles', owner: 'paca', comment: 'Hungry'},
   ]);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Appointments</Text>
-      {appointments.map(appointment => (
-        <View>
-          <Text>{appointment.client}</Text>
-        </View>
-      ))}
+      <FlatList
+        data={appointments}
+        renderItem={({item}) => <Appointment appointment={item} />}
+        keyExtractor={appointment => appointment.id}
+      />
     </View>
   );
 };
