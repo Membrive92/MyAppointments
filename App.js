@@ -8,12 +8,20 @@ const App = () => {
     {id: '2', client: 'Trambolico', owner: 'pepita', comment: 'Sleeping'},
     {id: '3', client: 'Cascabeles', owner: 'paca', comment: 'Hungry'},
   ]);
+
+  const deleteClient = id => {
+    setAppointments(currentAppointments => {
+      return currentAppointments.filter(appointment => appointment.id !== id);
+    });
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Appointments</Text>
       <FlatList
         data={appointments}
-        renderItem={({item}) => <Appointment appointment={item} />}
+        renderItem={({item}) => (
+          <Appointment appointment={item} deleteClient={deleteClient} />
+        )}
         keyExtractor={appointment => appointment.id}
       />
     </View>

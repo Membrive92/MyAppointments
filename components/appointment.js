@@ -1,7 +1,12 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, TouchableHighlight} from 'react-native';
 
-const Appointment = ({appointment}) => {
+const Appointment = ({appointment, deleteClient}) => {
+  const dialogDelete = id => {
+    console.log('delete click', id);
+    deleteClient(id);
+  };
+
   return (
     <View style={styles.appointment}>
       <View>
@@ -15,6 +20,13 @@ const Appointment = ({appointment}) => {
       <View>
         <Text style={styles.label}>Comments: </Text>
         <Text style={styles.text}>{appointment.comment}</Text>
+      </View>
+      <View>
+        <TouchableHighlight
+          onPress={() => dialogDelete(appointment.id)}
+          style={styles.btnDelete}>
+          <Text style={styles.txtBtnDelete}>Delete &times;</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -37,6 +49,16 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+  },
+  btnDelete: {
+    padding: 10,
+    backgroundColor: 'red',
+    marginVertical: 10,
+  },
+  txtBtnDelete: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
